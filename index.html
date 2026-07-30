@@ -1,16 +1,321 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JavaScriptParalindos — Documentação API</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JavaScriptParalindos API</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,#1a1a2e 0%,#16213e 40%,#0f3460 100%);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  color:#fff;overflow:hidden
+}
+.b{
+  position:absolute;border-radius:50%;
+  background:rgba(255,255,255,.04);animation:f 18s infinite ease-in-out
+}
+.b:nth-child(1){width:100px;height:100px;top:8%;left:8%}
+.b:nth-child(2){width:70px;height:70px;top:15%;right:12%;animation-delay:-5s}
+.b:nth-child(3){width:130px;height:130px;bottom:10%;left:15%;animation-delay:-10s}
+.b:nth-child(4){width:50px;height:50px;bottom:20%;right:8%;animation-delay:-15s}
+.b:nth-child(5){width:90px;height:90px;top:45%;left:3%;animation-delay:-7s}
+@keyframes f{0%,100%{transform:translate(0)}25%{transform:translate(-20px,-15px)}50%{transform:translate(15px,-25px)}75%{transform:translate(-10px,20px)}}
+.c{
+  position:relative;z-index:10;width:92%;max-width:580px;
+  background:rgba(255,255,255,.06);backdrop-filter:blur(16px);
+  border:1px solid rgba(255,255,255,.1);border-radius:24px;
+  padding:36px 28px;box-shadow:0 20px 60px rgba(0,0,0,.35);
+  transition:transform .3s
+}
+.c:hover{transform:translateY(-2px)}
+.h{display:flex;align-items:center;gap:12px;margin-bottom:24px}
+.lg{
+  width:40px;height:40px;border-radius:10px;
+  background:linear-gradient(135deg,#e94560,#ff6b6b);
+  display:flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:15px
+}
+.tt{font-size:18px;font-weight:700}
+.st{font-size:11px;color:rgba(255,255,255,.4);margin-top:2px}
+.bdg{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:4px 10px;border-radius:20px;
+  background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.15);
+  color:#4ade80;font-size:11px;font-weight:500;margin-bottom:20px
+}
+.pd{font-size:13px;color:rgba(255,255,255,.65);line-height:1.7;margin-bottom:22px}
+.ep{margin-bottom:20px}
+.eh{font-size:11px;font-weight:600;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px}
+.e{
+  display:flex;align-items:flex-start;gap:10px;padding:10px 12px;
+  border-radius:10px;background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.05);margin-bottom:8px;
+  transition:border-color .2s
+}
+.e:hover{border-color:rgba(255,255,255,.12)}
+.m{
+  font-size:10px;font-weight:700;padding:2px 6px;border-radius:4px;
+  flex-shrink:0;margin-top:2px
+}
+.m.g{background:rgba(34,197,94,.15);color:#4ade80}
+.m.b{background:rgba(59,130,246,.15);color:#60a5fa}
+.m.r{background:rgba(239,68,68,.15);color:#f87171}
+.m.y{background:rgba(234,179,8,.15);color:#facc15}
+.cd{font-family:"SF Mono",Monaco,monospace;font-size:11px;color:rgba(255,255,255,.55);line-height:1.8}
+.cd .k{color:#ff7b72}.cd .s{color:#a5d6ff}.cd .n{color:#79c0ff}.cd .c{color:#8b949e}
+pre{background:#0d1117;border-radius:10px;padding:14px;border:1px solid rgba(255,255,255,.05);overflow-x:auto;margin-bottom:16px}
+.ft{display:flex;align-items:center;justify-content:space-between;padding-top:14px;border-top:1px solid rgba(255,255,255,.06)}
+.ft span{font-size:10px;color:rgba(255,255,255,.25)}
+.dots{display:flex;gap:5px}
+.dots i{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.1);display:inline-block}
+
+/* Bait */
+.bait{text-align:center;padding:40px 0}
+.bait .ico{font-size:64px;margin-bottom:16px;animation:b .8s infinite alternate}
+.bait h2{font-size:28px;font-weight:700;margin-bottom:12px}
+.bait p{color:rgba(255,255,255,.5);font-size:14px;max-width:320px;margin:0 auto 20px}
+.ld{display:flex;gap:6px;justify-content:center}
+.ld i{width:6px;height:6px;border-radius:50%;background:#e94560;animation:p 1s infinite}
+.ld i:nth-child(2){animation-delay:.2s}
+.ld i:nth-child(3){animation-delay:.4s}
+@keyframes b{from{transform:translateY(0)}to{transform:translateY(-8px)}}
+@keyframes p{0%,100%{opacity:.3;transform:scale(.8)}50%{opacity:1;transform:scale(1.2)}}
+
+/* Timer */
+.tm{text-align:center;padding:20px 0}
+.tm .lb{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:24px}
+.rg{position:relative;width:180px;height:180px;margin:0 auto 24px}
+.rg svg{position:absolute;top:0;left:0;transform:rotate(-90deg)}
+.rg .n{font-size:52px;font-weight:200;letter-spacing:2px}
+.rg .sb{font-size:10px;color:rgba(255,255,255,.35);margin-top:2px}
+.hr{display:flex;gap:12px;justify-content:center}
+.hr span{font-size:20px;animation:h 2s infinite}
+.hr span:nth-child(2){animation-delay:.3s}
+.hr span:nth-child(3){animation-delay:.6s}
+@keyframes h{0%,100%{transform:scale(1)}15%{transform:scale(1.3)}30%{transform:scale(1)}45%{transform:scale(1.15)}}
+
+/* Birthday */
+.bd{text-align:center;padding:10px 0}
+.bd .gp{font-size:48px;margin-bottom:12px;animation:bi .7s ease-out}
+.bd .tg{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:#e94560;font-weight:600;margin-bottom:10px;animation:fu .7s .2s both}
+.bd h2{font-size:26px;font-weight:600;margin-bottom:10px;animation:fu .7s .4s both}
+.bd .dv{width:50px;height:2px;border-radius:2px;background:linear-gradient(90deg,#e94560,#ff6b6b);margin:0 auto 16px;animation:fu .7s .6s both}
+.bd .tx{font-size:14px;color:rgba(255,255,255,.7);line-height:1.8;max-width:420px;margin:0 auto 6px;animation:fu .7s .8s both}
+.bd .tx:nth-of-type(2){animation-delay:1s}
+.bd .sg{font-size:13px;color:rgba(255,255,255,.5);font-style:italic;margin-top:10px;animation:fu .7s 1.2s both}
+.bd .em{font-size:24px;margin-top:8px;animation:fu .7s 1.4s both}
+@keyframes bi{0%{transform:scale(0);opacity:0}50%{transform:scale(1.2)}100%{transform:scale(1);opacity:1}}
+@keyframes fu{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+/* Float msg */
+.fm{
+  position:fixed;top:16px;left:50%;transform:translateX(-50%) translateY(-20px);
+  z-index:100;padding:10px 20px;border-radius:16px;
+  background:rgba(255,255,255,.08);backdrop-filter:blur(12px);
+  border:1px solid rgba(255,255,255,.15);color:#fff;font-size:12px;
+  box-shadow:0 8px 32px rgba(0,0,0,.3);opacity:0;pointer-events:none;
+  transition:all .4s cubic-bezier(.4,0,.2,1);max-width:90%;text-align:center
+}
+.fm.on{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
 </head>
 <body>
-  <div id="app"></div>
-  <script type="module" src="app.js"></script>
+
+<div class="b"></div><div class="b"></div><div class="b"></div><div class="b"></div><div class="b"></div>
+
+<div id="fm" class="fm"></div>
+
+<div class="c" id="card">
+  <div id="docs">
+    <div class="h">
+      <div class="lg">JP</div>
+      <div>
+        <div class="tt">JavaScriptParalindos</div>
+        <div class="st">v2.4.0 — API de Fofura Avançada</div>
+      </div>
+    </div>
+    <div class="bdg"><span style="width:6px;height:6px;border-radius:50%;background:#4ade80;display:inline-block;margin-right:4px;animation:pu 2s infinite"></span>API Online</div>
+    <div class="pd">JavaScriptParalindos é uma API REST poderosa para gerenciamento de lindos em aplicações web modernas. Oferece endpoints otimizados para criar, ler, atualizar e deletar lindos com validação de fofura em tempo real.</div>
+    <div class="ep">
+      <div class="eh">Endpoints</div>
+      <div class="e"><span class="m b">GET</span><div><code style="font-size:12px;color:rgba(255,255,255,.8)">/v1/paralindos</code><div style="font-size:11px;color:rgba(255,255,255,.35);margin-top:2px">Retorna lista de lindos em JSON</div></div></div>
+      <div class="e"><span class="m g">POST</span><div><code style="font-size:12px;color:rgba(255,255,255,.8)">/v1/paralindos/criar</code><div style="font-size:11px;color:rgba(255,255,255,.35);margin-top:2px">Cria lindo com validação de fofura</div></div></div>
+      <div class="e"><span class="m r">DELETE</span><div><code style="font-size:12px;color:rgba(255,255,255,.8)">/v1/paralindos/:id</code><div style="font-size:11px;color:rgba(255,255,255,.35);margin-top:2px">Remove lindo permanentemente</div></div></div>
+      <div class="e"><span class="m y">PATCH</span><div><code style="font-size:12px;color:rgba(255,255,255,.8)">/v1/paralindos/:id/atualizar</code><div style="font-size:11px;color:rgba(255,255,255,.35);margin-top:2px">Atualiza nível de fofura</div></div></div>
+    </div>
+    <div class="eh">Exemplo de Uso</div>
+    <pre><div class="cd"><span class="k">const</span> <span class="n">paralindos</span> = <span class="n">require</span>(<span class="s">'javascriptparalindos'</span>);
+
+<span class="k">const</span> <span class="n">motor</span> = <span class="n">paralindos</span>.<span class="n">inicializar</span>({
+  <span class="n">nivelFofura</span>: <span class="s">'extremo'</span>,
+  <span class="n">modoSorriso</span>: <span class="k">true</span>
+});
+
+<span class="k">const</span> <span class="n">resultado</span> = <span class="n">motor</span>.<span class="n">criarLindo</span>({
+  <span class="n">nome</span>: <span class="s">'Sarah'</span>,
+  <span class="n">tipo</span>: <span class="s">'especial'</span>,
+  <span class="n">atributos</span>: [<span class="s">'incrível'</span>, <span class="s">'única'</span>]
+});
+
+<span class="n">console</span>.<span class="n">log</span>(<span class="n">resultado</span>); <span class="c">// { status: 'sucesso' }</span></div></pre>
+    <div class="ft"><span>© 2026 JavaScriptParalindos Inc.</span><div class="dots"><i></i><i></i><i></i></div></div>
+  </div>
+
+  <div id="bait" style="display:none">
+    <div class="bait">
+      <div class="ico">😏</div>
+      <h2>Achou mesmo que isso era real?</h2>
+      <p>JavaScriptParalindos não existe, meu amor. Mas o que vem agora... existe de verdade. 💕</p>
+      <div class="ld"><i></i><i></i><i></i></div>
+    </div>
+  </div>
+
+  <div id="timer" style="display:none">
+    <div class="tm">
+      <div class="lb">Só mais um pouquinho...</div>
+      <div class="rg">
+        <svg width="180" height="180"><circle cx="90" cy="90" r="82" fill="none" stroke="rgba(255,255,255,.06)" stroke-width="5"/><circle id="ring" cx="90" cy="90" r="82" fill="none" stroke="url(#gr)" stroke-width="5" stroke-linecap="round" stroke-dasharray="515.22" stroke-dashoffset="0"/></svg>
+        <div style="position:absolute;top:0;left:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center">
+          <div class="n" id="tnum">30</div>
+          <div class="sb">segundos</div>
+        </div>
+      </div>
+      <div class="hr"><span>💖</span><span>💕</span><span>💖</span></div>
+    </div>
+  </div>
+
+  <div id="birthday" style="display:none">
+    <div class="bd">
+      <div class="gp">🎂</div>
+      <div class="tg">Feliz Aniversário</div>
+      <h2>Para a minha pessoa favorita</h2>
+      <div class="dv"></div>
+      <p class="tx">Você é a pessoa mais incrível que já conheci. Cada dia ao seu lado é um presente que eu nunca imaginei merecer.</p>
+      <p class="tx">Que esse ano te traga tudo de bom — porque você merece o mundo inteiro.</p>
+      <div class="sg">Te amo! 💕</div>
+      <div class="em">🎁 ✨ 🎈</div>
+    </div>
+  </div>
+</div>
+
+<svg width="0" height="0"><defs><linearGradient id="gr" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#e94560"/><stop offset="100%" stop-color="#ff6b6b"/></linearGradient></defs></svg>
+
+<script>
+// === MENSAGENS BONITINHAS ===
+const msgs=[
+  'Você está sendo observada com carinho... 👀💕',
+  'Alguém está pensando em você agora... 🤔💖',
+  'Tem uma surpresa vindo aí... 🎁✨',
+  'Não sai daí, tá? 👉👈',
+  'Você é a pessoa mais especial do mundo... 🌎💕',
+  'Algo incrível está prestes a acontecer... 🌟',
+  'Essa API não é o que parece... 🤫',
+  'Continue lendo, vai valer a pena... 📖💝'
+];
+const fm=document.getElementById('fm');
+function showMsg(i){
+  fm.textContent=msgs[i%8];fm.classList.add('on');
+  setTimeout(()=>fm.classList.remove('on'),3000);
+}
+
+// === CONTROLE DE FASES ===
+const els={docs:document.getElementById('docs'),bait:document.getElementById('bait'),timer:document.getElementById('timer'),birthday:document.getElementById('birthday'),ring:document.getElementById('ring'),tnum:document.getElementById('tnum')};
+let phase=0,ticks=0,seconds=30,timerInterval=null;
+const CIRC=515.22;
+
+function setPhase(p){
+  phase=p;
+  els.docs.style.display=p===0?'block':'none';
+  els.bait.style.display=p===1?'block':'none';
+  els.timer.style.display=p===2?'block':'none';
+  els.birthday.style.display=p===3?'block':'none';
+}
+
+function updateTimer(s){
+  seconds=s;
+  els.tnum.textContent=s<10?'0'+s:s;
+  els.ring.style.strokeDashoffset=CIRC*(1-s/30);
+}
+
+// === GAME LOOP (1s) ===
+function tick(){
+  ticks++;
+  if(phase===0){
+    if(ticks%5===0&&ticks<=20)showMsg(ticks/5-1);
+    if(ticks>=25){setPhase(1);}
+  }else if(phase===1){
+    if(ticks>=28){setPhase(2);seconds=30;updateTimer(30);}
+  }else if(phase===2){
+    if(seconds>0){updateTimer(seconds-1);}
+    if(seconds===0){setPhase(3);clearInterval(timerInterval);}
+  }
+}
+
+// === WASM LOADER ===
+let wasm=null;
+
+// Tenta carregar Rust WASM primeiro, senão C++
+async function loadWasm(){
+  try{
+    // Tentativa 1: wasm-pack output (Rust)
+    const m=await import('./pkg/paralindos.js');
+    await m.default();
+    wasm={tick:()=>m.tick(),init:()=>m.init(),getPhase:()=>m.get_phase(),getSeconds:()=>m.get_seconds()};
+    console.log('✅ WASM Rust carregado');
+  }catch(e1){
+    try{
+      // Tentativa 2: Emscripten output (C++)
+      const script=document.createElement('script');
+      script.src='./cpp-paralindos/paralindos.js';
+      script.onload=()=>{
+        Module.onRuntimeInitialized=()=>{
+          wasm={
+            tick:()=>Module.ccall('cpp_tick','null',[],[]),
+            init:()=>Module.ccall('cpp_init','null',[],[]),
+            getPhase:()=>Module.ccall('cpp_get_phase','number',[],[]),
+            getSeconds:()=>Module.ccall('cpp_get_seconds','number',[],[])
+          };
+          console.log('✅ WASM C++ carregado');
+          startLoop();
+        };
+      };
+      document.head.appendChild(script);
+      return;
+    }catch(e2){
+      console.log('⚠️ WASM não disponível, usando JS puro');
+    }
+  }
+  startLoop();
+}
+
+function startLoop(){
+  if(wasm)wasm.init();
+  timerInterval=setInterval(()=>{
+    if(wasm){
+      wasm.tick();
+      const p=wasm.getPhase();
+      if(p!==phase){
+        setPhase(p);
+        if(p===2)updateTimer(wasm.getSeconds());
+      }
+      if(p===2)updateTimer(wasm.getSeconds());
+    }else{
+      tick();
+    }
+  },1000);
+}
+
+// Callbacks globais que o WASM chama
+window.js_update_timer=(v)=>updateTimer(v);
+window.js_update_phase=(p)=>setPhase(p);
+window.js_show_sweet=(i)=>showMsg(i);
+window.js_set_ring_offset=(o)=>{els.ring.style.strokeDashoffset=o;};
+
+// Inicia
+loadWasm();
+</script>
 </body>
 </html>
- 
